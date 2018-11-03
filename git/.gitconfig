@@ -1,0 +1,21 @@
+[user]
+	 name = Jacob Beal
+	email = jacob.beal@ieee.org
+	signingkey = DF8C38CCA82D513F
+[alias]
+	st = status --short
+  glog = log --all --pretty='format:%d %Cgreen%h%Creset %an - %s' --graph
+   cob = checkout -b
+    co = checkout
+    e = !vim $(git st | sed -e 's/\\(?? \\| [AM] \\)//')
+[core]
+	excludesfile = ~/.globalgitignore
+	editor = vim
+[url "git@github.com:"]
+	insteadOf = https://github.com/
+    insteadOf = gh:
+[url "git@gitlab.ecs.vuw.ac.nz:"]
+    insteadOf = ecs:
+    insteadOf = https://gitlab.ecs.vuw.ac.nz/
+[commit]
+	gpgsign = true
