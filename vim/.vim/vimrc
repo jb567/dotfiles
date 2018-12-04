@@ -57,7 +57,6 @@ syntax on
 
 set mouse=
 
-set guifont=PragmataPro:h12
 
 colorscheme base16-eighties
 set background=dark
@@ -199,6 +198,7 @@ set backupdir=~/.vim/backup//
 set backup
 set writebackup
 set backupcopy=yes
+set backupskip=/tmp/*,/private/tmp/*
 
 set undodir=~/.vim/undo//
 set undofile

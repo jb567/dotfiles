@@ -1,3 +1,6 @@
 plugged
 .netrwhist
-backup
+vim/.vim/backup
+vim/.vim/swap
+plug.vim
+plug.vim.old
