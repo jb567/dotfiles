@@ -3,6 +3,7 @@
 	email = jacob.beal@ieee.org
 	signingkey = DF8C38CCA82D513F
 [alias]
+     p = pull --ff-only
 	st = status --short
   glog = log --all --pretty='format:%d %Cgreen%h%Creset %an - %s' --graph
    cob = checkout -b

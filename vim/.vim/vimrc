@@ -20,6 +20,7 @@ Plug 'konfekt/fastfold'
 " Plug 'ludovicchabant/vim-gutentags' -- not async and makes vim really slow
 " Plug 'mhinz/vim-startify'
 " Plug 'roman/golden-ratio'
+Plug 'romainl/vim-qf'
 Plug 'sheerun/vim-polyglot'
 Plug 'tommcdo/vim-lion'
 Plug 'tpope/vim-abolish'
@@ -44,6 +45,8 @@ Plug 'vim-pandoc/vim-pandoc-syntax', {'for': ['latex', 'pandoc', 'markdown']}
 Plug 'chriskempson/base16-vim'
 Plug 'romainl/apprentice'
 
+Plug '/usr/bin/fzf'
+
 if(has('nvim'))
     Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 endif
@@ -52,7 +55,7 @@ call plug#end()
 filetype plugin indent on
 syntax on
 
-set mouse=nvi
+set mouse=
 
 set guifont=PragmataPro:h12
 
@@ -82,36 +85,13 @@ let g:php_folding=1
 let g:perl_folding=1
 
 
-"""""""""""
-"FUNCTIONS"
-"""""""""""
-function! Reg()
-  reg
-  echo 'Register: '
-  let char = nr2char(getchar())
-  if char !=? "\<Esc>"
-    execute 'normal! "' . char . 'p'
-  endif
-  redraw
-endfunction
-command! -nargs=0 Reg call Reg()
+command! -nargs=0 Reg call utility#reg()
 nnoremap gs :Reg<cr>
 
-"Cleans written buffers
-function! s:wipeout()
-  let tpbl=[]
-  call map(range(1, tabpagenr('$')), 'extend(tpbl, tabpagebuflist(v:val))')
-  let wiped = 0
-  for buf in filter(range(1, bufnr('$')), 'bufexists(v:val) && index(tpbl, v:val)==-1 && !getbufvar(v:val,"&mod")')
-    silent execute 'bwipeout!' buf
-    let wiped += 1
-  endfor
-  echom wiped . ' buffers wiped'
-endfunction
-command! Wipeout call s:wipeout()
+command! Wipeout call utility#wipeout()
 
-let mapleader=','
-let g:mapleader=','
+" let mapleader=','
+" let g:mapleader=','
 
 "insert mode
 "===========
@@ -211,13 +191,21 @@ set grepformat=%f:%l:%c:%m,%f:%l:%m
 let g:polyglot_disabled = ['latex']
 
 set directory=~/.vim/swap//
-set backupdir=~/.vim/backup//
+set swapsync=fsync
+set updatecount=10
+set updatetime=500
 
-set undodir=~/.vim/undo/
+set backupdir=~/.vim/backup//
+set backup
+set writebackup
+set backupcopy=yes
+
+set undodir=~/.vim/undo//
 set undofile
 
 set lazyredraw
 set shortmess=aIT
+set scrolloff=5
 
 
 set statusline=\ %f           " Path to the file
@@ -227,3 +215,22 @@ set statusline+=%=            " Switch to the right side
 set statusline+=%l            " current line
 set statusline+=/%L           " Total lines
 set statusline+=\ -\ %{statusline#linter()}\ 
+
+
+inoremap <C-F>
+    \ <C-O>:let b:oldpwd = getcwd() <bar>
+    \ lcd %:p:h<cr><C-X><C-F>
+" Restore path when done.
+augroup autocompletionCdChange
+    autocmd!
+    autocmd CompleteDone *
+                \ if exists('b:oldpwd') |
+                \   cd `=b:oldpwd` |
+                \   unlet b:oldpwd |
+                \ endif
+augroup END
+" Chain multiple path completions with / key. Selects the first suggestion if
+" no current selection. Use ctrl-y to finish completion as normal.
+imap <expr> / pumvisible()
+    \ ? len(v:completed_item) ? '<C-Y><C-F>' : '<C-N><C-Y><C-F>'
+    \ : '/'
