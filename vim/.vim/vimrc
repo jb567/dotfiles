@@ -45,8 +45,6 @@ Plug 'vim-pandoc/vim-pandoc-syntax', {'for': ['latex', 'pandoc', 'markdown']}
 Plug 'chriskempson/base16-vim'
 Plug 'romainl/apprentice'
 
-Plug '/usr/bin/fzf'
-
 if(has('nvim'))
     Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 endif
@@ -57,7 +55,6 @@ syntax on
 
 set mouse=
 
-
 colorscheme base16-eighties
 set background=dark
 set fileformat=unix
@@ -67,6 +64,7 @@ set matchpairs+=<:>
 set nowrap
 set number relativenumber
 set textwidth=80
+set autoread
 
 set splitright splitbelow
 

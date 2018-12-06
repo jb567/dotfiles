@@ -12,11 +12,27 @@
 [core]
 	excludesfile = ~/.globalgitignore
 	editor = vim
+[commit]
+	gpgsign = true
+    verbose = true
+[diff]
+    tool = vimdiff2
+[difftool]
+    prompt = false
+[merge]
+    tool = fugitive
+[mergetool]
+    prompt = false
+
+#Custom Commands
 [url "git@github.com:"]
 	insteadOf = https://github.com/
     insteadOf = gh:
 [url "git@gitlab.ecs.vuw.ac.nz:"]
     insteadOf = ecs:
     insteadOf = https://gitlab.ecs.vuw.ac.nz/
-[commit]
-	gpgsign = true
+
+[mergetool "fugitive"]
+    cmd = vim -f -c "Gdiff" "$MERGED"
+[difftool "vimdiff2"]
+    cmd = vim -d $LOCAL $REMOTE
