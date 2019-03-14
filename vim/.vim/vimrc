@@ -32,7 +32,7 @@ Plug 'tpope/vim-vinegar'
 Plug 'w0rp/ale'
 Plug 'wellle/targets.vim'
 
-Plug 'chriskempson/base16-vim'
+Plug 'danielwe/base16-vim'
 Plug 'romainl/apprentice'
 
 if(has('nvim'))
