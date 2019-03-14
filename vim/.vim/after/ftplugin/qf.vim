@@ -4,4 +4,4 @@ setlocal norelativenumber
 setlocal number
 setlocal nobuflisted
 
-let b:undo_ftplugin = 'setlocal number< relativenumber< nobuflisted<'
+let b:undo_ftplugin .= 'setlocal number< relativenumber< nobuflisted<'

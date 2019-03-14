@@ -12,14 +12,11 @@ call plug#begin('~/.vim/plugged')
 Plug 'airblade/vim-gitgutter'
 Plug 'andrewradev/splitjoin.vim'
 Plug 'bkad/camelcasemotion'
-Plug 'chrisbra/vim-diff-enhanced'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'junegunn/fzf.vim'
 Plug 'konfekt/fastfold'
-" Plug 'ludovicchabant/vim-gutentags' -- not async and makes vim really slow
-" Plug 'mhinz/vim-startify'
-" Plug 'roman/golden-ratio'
+Plug 'ludovicchabant/vim-gutentags'
 Plug 'romainl/vim-qf'
 Plug 'sheerun/vim-polyglot'
 Plug 'tommcdo/vim-lion'
@@ -29,18 +26,11 @@ Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-obsession'
 Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-sensible'
-Plug 'tpope/vim-speeddating'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-vinegar'
 Plug 'w0rp/ale'
-Plug 'wakatime/vim-wakatime'
 Plug 'wellle/targets.vim'
-
-Plug 'lervag/vimtex', {'for': 'latex'}
-Plug 'vim-pandoc/vim-pandoc', {'for': ['latex', 'pandoc', 'markdown']}
-Plug 'vim-pandoc/vim-pandoc-syntax', {'for': ['latex', 'pandoc', 'markdown']}
 
 Plug 'chriskempson/base16-vim'
 Plug 'romainl/apprentice'
@@ -55,6 +45,7 @@ syntax on
 
 set mouse=
 
+
 colorscheme base16-eighties
 set background=dark
 set fileformat=unix
@@ -65,6 +56,8 @@ set nowrap
 set number relativenumber
 set textwidth=80
 set autoread
+
+set diffopt-=internal
 
 set splitright splitbelow
 
@@ -92,12 +85,7 @@ command! Wipeout call utility#wipeout()
 
 "insert mode
 "===========
-"make shit easier to escape
-inoremap <silent> jk <ESC>
-cnoremap <silent> jk <C-c>
 
-"remove the highlighting after
-nnoremap <silent> i :nohl<cr>i
 "set current directory to file location
 nnoremap <silent> <leader>cd :cd %:p:h<CR>
 
@@ -118,9 +106,6 @@ noremap <expr> k v:count > 1 ? 'm`' . v:count . 'k' : 'gk'
 "Go to last copy
 nmap gV `[v`]
 
-nnoremap dD 0d$
-
-
 "Ex mode
 cmap w!! %!sudo tee > /dev/null %
 
@@ -131,10 +116,10 @@ vnoremap K :m '<-2<CR>gv=gv
 vnoremap @ :norm@
 
 "highlight
-nmap <leader><space> :nohl<CR>
+nnoremap <leader><space> :nohl<CR>
 
 "misc
-map Y y$
+nnoremap Y y$
 
 " map the system clipboard to leader  
 nnoremap <leader>y "+y
@@ -149,16 +134,13 @@ vnoremap <leader>p "+p
 nnoremap <leader>P "+P
 vnoremap <leader>P "+P
 
-nnoremap <silent> <leader>f :Files<CR>
-" 
-
 set nrformats -=octal "removes silly octal 
-                      "<C-A> options so 
-                      "increments with leading 0
+
 set magic
 
 "WILD MENU 
 set wildmenu                                     | " enable wildmenu
+set wildcharm=<C-z>
 set wildmode=list:longest
 set wildignore+=.hg,.git,.svn                    | " Version control
 set wildignore+=*.aux,*.out,*.toc                | " LaTeX intermediate files
@@ -182,9 +164,9 @@ let g:ale_javascript_eslint_suppress_eslintignore = 1
 call camelcasemotion#CreateMotionMappings('<leader>')
 set omnifunc=syntaxcomplete#Complete
 
-
 set grepprg=rg\ --vimgrep\ --no-heading
 set grepformat=%f:%l:%c:%m,%f:%l:%m
+
 let g:polyglot_disabled = ['latex']
 
 set directory=~/.vim/swap//
