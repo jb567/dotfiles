@@ -9,6 +9,7 @@
    cob = checkout -b
     co = checkout
     e = !vim $(git st | sed -e 's/\\(?? \\| [AM] \\)//')
+  pom = push origin master
 [core]
 	excludesfile = ~/.globalgitignore
 	editor = vim

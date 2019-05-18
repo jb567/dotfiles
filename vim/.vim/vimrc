@@ -31,6 +31,8 @@ Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-vinegar'
 Plug 'w0rp/ale'
 Plug 'wellle/targets.vim'
+Plug 'hwayne/tla.vim'
+
 
 Plug 'danielwe/base16-vim'
 Plug 'romainl/apprentice'
